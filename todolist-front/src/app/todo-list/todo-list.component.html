@@ -1,9 +1,11 @@
 <mat-card class="example-card">
+  
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
     <mat-card-title>Todo</mat-card-title>
     <mat-card-subtitle>List</mat-card-subtitle>
   </mat-card-header>
+
   <mat-card-content>
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       <!-- Title Column -->
@@ -12,11 +14,13 @@
         <td mat-cell *matCellDef="let element"> {{element.title}} </td>
       </ng-container>
 
-      <!-- Title State -->
+      <!-- State Column -->
       <ng-container matColumnDef="state">
         <th mat-header-cell *matHeaderCellDef> State </th>
-        <td mat-cell *matCellDef="let element"> <span *ngIf="element.state">Done</span><span *ngIf="!element.state">To
-            do</span> </td>
+        <td mat-cell *matCellDef="let element">
+          <mat-checkbox [checked]="element.done!!" (change)="$event ? updateDone(element) : null">
+          </mat-checkbox>
+        </td>
       </ng-container>
 
       <!-- Description Column -->
@@ -26,7 +30,7 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="row.done!! ? 'done' : ''"></tr>
     </table>
   </mat-card-content>
 
