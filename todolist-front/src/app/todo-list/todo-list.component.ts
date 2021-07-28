@@ -1,17 +1,9 @@
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-export interface TaskElement {
-  id: number;
-  title: string;
-  description: string;
-  done?: Date;
-}
-const ELEMENT_DATA: TaskElement[] = [
-  { id: 0, title: 'US 1', description: "As a user I would like to list my current todos" },
-  { id: 1, title: 'US 2', description: "Change a TODO state" },
-  { id: 2, title: 'US 3', description: "Detail a TODO" },
-];
+import { environment } from '../../environments/environment';
+import { TaskElement } from '../shared/TaskElement';
+
 
 @Component({
   selector: 'app-todo-list',
@@ -20,11 +12,11 @@ const ELEMENT_DATA: TaskElement[] = [
 })
 export class TodoListComponent implements OnInit {
 
-  displayedColumns: string[] = ['state', 'title', 'description'];
+  displayedColumns: string[] = ['state', 'title'];
   dataSource = new MatTableDataSource<TaskElement>();
 
   ngOnInit(): void {
-    this.dataSource.data = ELEMENT_DATA;
+    this.dataSource.data = environment.ELEMENT_DATA;
   }
 
   updateDone(element: TaskElement) {
