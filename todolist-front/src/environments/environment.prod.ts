@@ -1,4 +1,3 @@
 export const environment = {
-  production: true,
-  ELEMENT_DATA: []
+  production: true
 };

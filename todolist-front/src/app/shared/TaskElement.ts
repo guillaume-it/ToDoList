@@ -1,6 +1,7 @@
 export interface TaskElement {
-  id: number;
+  id?: number;
   title: string;
-  description: string;
+  description?: string;
   done?: Date;
+  create?: Date;
 }
