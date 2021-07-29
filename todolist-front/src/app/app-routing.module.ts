@@ -1,22 +1,30 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TodoDetailComponent } from './todo-detail/todo-detail.component';
-import { TodoListComponent } from './todo-list/todo-list.component';
+import { environment } from '../environments/environment';
+import { TodoDetailComponent } from './task-detail/task-detail.component';
+import { TodoListComponent } from './task-list/task-list.component';
 
 const routes: Routes = [{
   path: '',
   children: [
-    { path: '', component: TodoListComponent },
-    { path: 'todo/:id', component: TodoDetailComponent }
+    { path: '', redirectTo: '/tasks', pathMatch: 'full' },
+    { path: 'tasks', component: TodoListComponent },
+    { path: 'tasks/:id', component: TodoDetailComponent },
+    { path: 'tasks/add', component: TodoDetailComponent }
   ]
-},
-{ path: '', redirectTo: '/', pathMatch: 'full' },
-{ path: '**', redirectTo: '/', pathMatch: 'full' }
+}
 ];
 
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(
+    routes,
+    {
+      enableTracing: !environment.production,
+      useHash: true,
+      relativeLinkResolution: 'legacy'
+    }
+  )],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

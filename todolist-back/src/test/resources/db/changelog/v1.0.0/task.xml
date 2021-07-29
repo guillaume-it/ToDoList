@@ -1,0 +1,47 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+
+    <changeSet author="Guillaume" id="task-1">
+        <createSequence cycle="true" incrementBy="1" schemaName="public" sequenceName="seq_task_id"
+                        startValue="3"/>
+    </changeSet>
+    <changeSet author="Guillaume" id="task-2">
+        <createTable tableName="task">
+            <column name="id" type="BIGINT" defaultValueSequenceNext="seq_task_id">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(200)"/>
+            <column name="description" type="VARCHAR(2000)"/>
+            <column name="done" type="${dbDate}"/>
+            <column name="create" type="${dbDate}"/>
+        </createTable>
+
+        <addPrimaryKey columnNames="id" constraintName="task_pkey" tableName="task"/>
+    </changeSet>
+    <changeSet author="Guillaume" id="task-3">
+        <insert tableName="task">
+            <column name="id" valueNumeric="0"/>
+            <column name="title" value="US 1 : List my TODOs"/>
+            <column name="description" value="As a user I would like to list my current tasks"/>
+            <column name="create" valueDate="2021-06-27 16:00:00.0"/>
+            <column name="done" valueDate="2021-07-27 16:00:00.0"/>
+        </insert>
+        <insert tableName="task">
+            <column name="id" valueNumeric="1"/>
+            <column name="title" value="US 2 : Change a TODO state"/>
+            <column name="description" value="As a user I would like to change a task state by checking a box"/>
+            <column name="create" valueDate="2021-07-10 16:00:00.0"/>
+
+        </insert>
+        <insert tableName="task">
+            <column name="id" valueNumeric="2"/>
+            <column name="title" value="US 3 : Detail a TODO"/>
+            <column name="description" value="As a user I would like to display one of my task in a separate or dedicated view.This task will contain its title and a description(which is a new information not shown in the previous view)."/>
+            <column name="create" valueDate="2021-06-17 16:00:00.0"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
